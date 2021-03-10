@@ -38,82 +38,37 @@ bool comparison(const pair<int,int> &a,const pair<int,int> &b){
     return a.second<b.second; 
 } 
 
-char mirror(int i){
-    if(i==1)return '1';
-    else if(i==0) return '0';
-    else if(i==2) return '5';
-    else if(i==5) return '2';
-    else if(i==8) return '8';
-    else return 'a';
-}
 
-string check(string s,int i,int h,int m){
-    string temp="";
-    int hr = int(s[0]-48)*10+int(s[1]-48);
-    int mn = int(s[3]-48)*10+int(s[4]-48);
-    
-    mn += i;
-    hr += mn/m;
-
-    hr%=h;
-    mn%=m;
-    
-    if(mirror(mn%10)=='a'){
-        return "";
-    }
-    else{
-        temp += mirror(mn%10);
-    }
-
-    if(mirror(mn/10)=='a'){
-        return "";
-    }
-    else{
-        temp += mirror(mn/10);
-    }
-    temp += ':';
-    if(mirror(hr%10)=='a'){
-        return "";
-    }
-    else{
-        temp += mirror(hr%10);
-    }
-
-    if(mirror(hr/10)=='a'){
-        return "";
-    }
-    else{
-        temp += mirror(hr/10);
-    }
-    return temp;
-}
 
 void solvetestcases()
 {
-    int h,m;
-    string s;
-    cin >> h >> m;
-    cin >> s;
-
-    loop(i,0,h*m){
-        
-            string temp=check(s,i,h,m);
-            if(     temp!="" && ((int(temp[0])-48)*10+(int(temp[1])-48)<h) &&   ((int(temp[3])-48)*10+(int(temp[4])-48)<m)  ){
-                string ans="";
-                reverse(temp.begin(),temp.end());
-                loop(k,0,5){
-                    if(k==2){
-                        ans += ':';
-                        continue;
-                    }
-                    ans += mirror(int(temp[k])-48);
-                }
-                cout << ans;
-                return;
-            }
+    ll n,k;
+    cin >> n >> k;
+    set<int> s;
+    int x;
+    int mx = INT_MIN;
+    loop(i,0,n){
+        cin >> x;
+        s.insert(x);
+        mx = max(mx,x);
     }
-}
+    int mex = 0;
+    loop(i,0,n+10){
+        if(s.count(i)==0){
+            mex = i;
+            break;
+        }
+    }
 
+    if(mex==mx+1){
+        cout << n+k;
+    }
+    else{
+        if(s.count((mex+mx+1)/2)==0 && k>0) cout << n+1;
+        else cout << n;
+    }
+
+}
 
 int TESTCASES=1;
 int32_t main()

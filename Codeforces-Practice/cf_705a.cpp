@@ -41,18 +41,18 @@ bool comparison(const pair<int,int> &a,const pair<int,int> &b){
 void solvetestcases()
 {
     int n,k;
-    cin >> n >> k;
-    vi ans;
-    loop(i,k+1,n+1){
-        ans.pb(i);
+    cin >> n >>k;
+    string s;
+    cin >> s;
+    bool check = true;
+    loop(i,0,k){
+        if(s[i]!=s[n-i-1]){
+            check = false;
+            break;
+        }
     }
-    loop(i,(k+1)/2,k){
-        ans.pb(i);
-    }
-    cout << ans.size() << endl;
-    for(auto i:ans){
-        cout << i << " ";
-    }
+    if(check && n>2*k) cout << "YES";
+    else cout << "NO";
 }
 
 int TESTCASES=1;
